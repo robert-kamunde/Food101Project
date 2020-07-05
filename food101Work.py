@@ -1,7 +1,4 @@
-# -*- coding: utf-8 -*-
 """
-Created on Sat Jul  4 18:34:01 2020
-
 @author: Robert Kamunde
 """
 # Helper method to split dataset into train and test folders
