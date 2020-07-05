@@ -1,7 +1,4 @@
-# -*- coding: utf-8 -*-
 """
-Created on Sun Jul  5 13:06:12 2020
-
 @author: Robert Kamunde
 """
 
