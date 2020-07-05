@@ -65,7 +65,7 @@ predictions = Dense(101,kernel_regularizer=regularizers.l2(0.005), activation='s
 
 model = Model(inputs=inception.input, outputs=predictions)
 model.compile(optimizer=SGD(lr=0.0001, momentum=0.9), loss='categorical_crossentropy', metrics=['accuracy'])
-checkpointer = ModelCheckpoint(filepath='best_model_3class.hdf5', verbose=1, save_best_only=True)
+checkpointer = ModelCheckpoint(filepath='best_model_class.hdf5', verbose=1, save_best_only=True)
 csv_logger = CSVLogger('history.log')
 
 history = model.fit_generator(train_generator,
@@ -76,5 +76,5 @@ history = model.fit_generator(train_generator,
                     verbose=1,
                     callbacks=[csv_logger, checkpointer])
 
-model.save('model_trained_3class.hdf5')
+model.save('model_trained_class.hdf5')
     
