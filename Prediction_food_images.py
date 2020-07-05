@@ -20,7 +20,7 @@ def create_foodlist(path):
     return list_    
 
 #loading the model i trained and finetuned        
-my_model = load_model('best_model_3class.hdf5', compile = False)
+my_model = load_model('best_model_class.hdf5', compile = False)
 food_list = create_foodlist("food-101/images") 
 
 #function to help in predicting classes of new images loaded from my computer(for now) 
