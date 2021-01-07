@@ -8,6 +8,7 @@ import tensorflow as tf
 import tensorflow.keras.backend as K
 from tensorflow.keras import regularizers
 from tensorflow.keras.applications.inception_v3 import InceptionV3
+from tensorflow.keras.applications.mobilenet_v2 import MobileNetV2
 from tensorflow.keras.models import Sequential, Model
 from tensorflow.keras.layers import Dense, Dropout, Activation, Flatten
 from tensorflow.keras.layers import Convolution2D, MaxPooling2D, ZeroPadding2D, GlobalAveragePooling2D, AveragePooling2D
@@ -30,7 +31,7 @@ train_data_dir = 'food-101/train'
 validation_data_dir = 'food-101/test'
 nb_train_samples = 75750
 nb_validation_samples = 25250
-batch_size = 16
+batch_size = 20
 
 train_datagen = ImageDataGenerator(
     rescale=1. / 255,
@@ -53,17 +54,17 @@ validation_generator = test_datagen.flow_from_directory(
     class_mode='categorical')
 
 
-inception = InceptionV3(weights='imagenet', include_top=False)
-x = inception.output
+mbv2 = MobileNetV2(weights='imagenet', include_top=False, input_shape = (299,299,3))
+x = mbv2.output
 x = GlobalAveragePooling2D()(x)
 x = Dense(128,activation='relu')(x)
 x = Dropout(0.2)(x)
 
 predictions = Dense(101,kernel_regularizer=regularizers.l2(0.005), activation='softmax')(x)
 
-model = Model(inputs=inception.input, outputs=predictions)
+model = Model(inputs=mbv2.input, outputs=predictions)
 model.compile(optimizer=SGD(lr=0.0001, momentum=0.9), loss='categorical_crossentropy', metrics=['accuracy'])
-checkpointer = ModelCheckpoint(filepath='best_model_class.hdf5', verbose=1, save_best_only=True)
+checkpointer = ModelCheckpoint(filepath='best_model_3class_sept.hdf5', verbose=1, save_best_only=True)
 csv_logger = CSVLogger('history.log')
 
 history = model.fit_generator(train_generator,
@@ -74,5 +75,5 @@ history = model.fit_generator(train_generator,
                     verbose=1,
                     callbacks=[csv_logger, checkpointer])
 
-model.save('model_trained_class.hdf5')
+model.save('model_trained.h5')
     
