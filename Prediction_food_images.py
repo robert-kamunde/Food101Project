@@ -38,8 +38,9 @@ def predict_class(model, images, show = True):
         plt.title(pred_value)
         plt.show()
 
+#add the images you want to predict into a list (these are in the WD)
 images = []
-images.append('caesar.jpg')
+images.append('caesar.jpg') 
 images.append('beet2.jpg')
 
 
